@@ -1,0 +1,8 @@
+amd-ucode
+base
+linux
+linux-lts
+linux-headers
+linux-lts-headers
+linux-firmware
+nvim

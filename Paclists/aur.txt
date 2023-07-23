@@ -1,0 +1,6 @@
+snapper-gui
+snap-pac-grub
+realvnc-vnc-viewer
+rofi-lbonn-wayland-git
+rtl88x2bu-dkms-git
+vscodium-bin

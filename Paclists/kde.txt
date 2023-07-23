@@ -1,0 +1,8 @@
+sddm
+sddm-kcm
+plasma-desktop 
+plasma-wayland-session
+plasma-nm
+plasma-pa
+print-manager
+
