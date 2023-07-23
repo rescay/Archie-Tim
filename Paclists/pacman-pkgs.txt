@@ -3,7 +3,6 @@ curl
 firefox
 gimp
 gparted
-grub-btrfs
 htop
 hyprland
 info
