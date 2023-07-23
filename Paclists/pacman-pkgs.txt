@@ -5,7 +5,6 @@ gimp
 gparted
 htop
 hyprland
-info
 kitty
 lf
 libreoffice-still
