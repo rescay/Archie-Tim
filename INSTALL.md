@@ -8,17 +8,7 @@ directly: iwctl --passphrase "" station wlan device connect SSID
 loadkeys de-latin1
 setfont ter-132n
 ping archlinux.org
-# Create partitions
-# Establish a wifi connection and check ethernet connection
-ip a
-iwctl
-station wlan device connect ""
-enter passphrase
-directly: iwctl --passphrase "" station wlan device connect SSID
 
-loadkeys de-latin1
-setfont ter-132n
-ping archlinux.org
 # Create partitions
 fdisk -l 
 fdisk /dev/device
