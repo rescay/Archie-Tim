@@ -11,10 +11,9 @@ lf
 libreoffice-still
 make
 man
-nvidia-dkms
 neofetch 
 nmap
-openssh
+papirus-icon-theme
 plocate
 thunderbird
 traceroute
