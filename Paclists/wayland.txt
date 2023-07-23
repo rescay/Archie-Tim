@@ -3,5 +3,4 @@ glfw-wayland
 qt6-wayland
 wayland
 xorg-xwayland
---END OF MINIMAL INSTALLATION--
 xorg-xlsclients
