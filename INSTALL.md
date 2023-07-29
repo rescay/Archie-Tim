@@ -4,10 +4,11 @@ iwctl
 station wlan device connect ""
 enter passphrase
 directly: iwctl --passphrase "" station wlan device connect SSID
+ping archlinux.org
 
 loadkeys de-latin1
 setfont ter-132n
-ping archlinux.org
+
 
 # Create partitions
 fdisk -l 
@@ -45,18 +46,21 @@ btrfs su cr /mnt/@
 btrfs su cr /mnt/@home
 btrfs su cr /mnt/@snapshots
 btrfs su cr /mnt/@var_log
+btrfs su cr /mnt/@var_cache
 umount /mnt
-mkdir -p /mnt/{boot,.snapshots,var}
-mkdir /mnt/var/log
+mkdir -p /mnt/{boot/EFI,.snapshots,var/{cache.log}}
 mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@ /dev/mapper/archie /mnt 
 mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@home /dev/mapper/archie /mnt/home
 mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@snapshots /dev/mapper/archie /mnt/.snapshots
 mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@var_log /dev/mapper/archie /mnt/var/log 
+mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@var_cache /dev/mapper/archie /mnt/var/cache
+
 mount /dev/nvme0n1p2 /mnt/boot
+mount /dev/nvme0n1p1 /mnt/boot/EFI
 lsblk
 
 # Install the base system 
-pacstrap /mnt base git bash-completion linux linux-lts linux-headers linux-lts-headers linux-firmware neovim amd-ucode
+pacstrap -K /mnt base base-devel reflector rsync git bash-completion linux linux-lts linux-headers linux-lts-headers linux-firmware neovim amd-ucode
 
 # Generate filesystem table
 genfstab -U -p /mnt >> /mnt/etc/fstab
@@ -81,7 +85,8 @@ echo ::1 localhost >> /etc/hosts
 echo 127.0.0.1 tim-archie.localdomain tim-archie >> /etc/hosts
 # Setting root password
 passwd
-# Installing boot packages
+# Installing boot packages and setting up reflector
+reflector -c Germany --latest 5 --sort rate --save /etc/pacman.d/mirrorlist
 git clone https://github.com/rescay/Archie-Tim
 cd Archie-Tim/Paclists
 pacman -Syy
@@ -91,9 +96,6 @@ pacman -S --needed - < pacman-boot.txt
 nvim /etc/mkinitcpio.conf MODULES=(btrfs nvidia nvidia_modeset nvidia_uvm nvidia_drm)
 HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck"
 sudo mkinitcpio -p linux linux-lts
-# create UEFI folder and mount UEFI partition 
-mkdir /boot/EFI
-mount /dev/nvme0n1p1 /boot/EFI
 # Install grub in MBR and configurate grub and generate grub configuration file
 grub-install --target=x86_64-efi -bootloader-id=grub_uefi --recheck
 cp /usr/share/locale/en\@quot/LC_MESSAGE/grub.mo /boot/grub/locale/en.mo
@@ -102,8 +104,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=/dev/nvme01np3:archie:allow-discards roo
 grub-mkconfig -o /boot/grub/grub.cfg
 # Enable various services
 systemctl enable NetworkManager
-systemctl enable Bluetooth
-systemctl enable Cups
+sysemctl enable reflector.timer
 systemctl enable sshd
 systemctl enable systemd-timesyncd
 # Create user and add sudo privileges
