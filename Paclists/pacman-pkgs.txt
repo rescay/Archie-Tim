@@ -18,8 +18,11 @@ nmap
 papirus-icon-theme
 plocate
 thunderbird
+<<<<<<< HEAD
 ttf-firacode-nerd
 ttf-jetbrains-mono-nerd
+=======
+>>>>>>> 02ae2e1dd1e31e54face60ce93af5264321dea08
 tmux
 traceroute
 unrar
