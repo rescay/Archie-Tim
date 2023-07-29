@@ -1,6 +1,5 @@
 egl-wayland
 glfw-wayland
-qt6-wayland
 wayland
 xorg-xwayland
 xorg-xlsclients
