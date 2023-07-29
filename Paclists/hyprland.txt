@@ -1,0 +1,11 @@
+sddm
+polkit-kde-agent
+qt5ct
+qt5-graphicaleffects 
+qt5-quickcontrols2
+qt5-svg
+qt5-wayland
+qt6ct
+qt6-wayland
+wireplumber
+xdg-desktop-portal-hyprland
