@@ -119,5 +119,32 @@ systemctl enable sddm
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
+cd
+yay
+rm -rf yay
 yay -S --needed - < aur.txt
-
+# Configuring snapper snapshots
+sudo -s
+umount /.snapshots
+rm -r /.snapshots
+snapper -c root create-config /
+snapper -c home create-config /@home 
+btrfs su del /.snapshots
+mkdir /.snapshots
+mount -a
+btrfs su get-default /
+btrfs subvol list /
+btrfs subvol list /@home
+btrfs subvol set-def number /
+btrfs subvol get-default /
+nvim /etc/snapper/configs/root
+nvim /etc/snapper/configs/home
+chmod 750 /.snapshots
+chown -r :wheel /.snapshots
+chmod 750 /home/.snapshots
+chown -r :wheel /home/.snapshots
+(snapper -c root create -d "***System Installed***"
+systemctl status grub-btrfs.cfg
+systemctl enable --now snapper-timeline.timer
+systemctl enable --now snapper-cleanup.timer
+nvim /etc/updatedb.conf PRUNENAMES = ".snapshots"
