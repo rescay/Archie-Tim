@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 base-devel
->>>>>>> 02ae2e1dd1e31e54face60ce93af5264321dea08
 btrfs-progs
 dialog
 dosfstools
@@ -17,11 +14,8 @@ networkmanager
 nvidia-open-dkms
 openssh
 os-prober
-<<<<<<< HEAD
-=======
 reflector
 rsync
->>>>>>> 02ae2e1dd1e31e54face60ce93af5264321dea08
 snapper
 wireless_tools
 wpa_supplicant
