@@ -11,15 +11,11 @@ htop
 kitty
 lf
 make
-man
-neofetch 
 ncdu
 nmap
 papirus-icon-theme
 plocate
 thunderbird
-ttf-firacode-nerd
-ttf-jetbrains-mono-nerd
 tmux
 traceroute
 unrar
@@ -29,6 +25,3 @@ wl-clipboard
 wget
 zip
 zsh
-zsh-syntax-highlighting
-zsh-autosuggestions
-zsh-theme-powerlevel10k

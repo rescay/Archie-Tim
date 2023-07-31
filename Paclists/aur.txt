@@ -3,7 +3,6 @@ anki
 bemenu
 hyprland-nvidia-git
 hyprpicker-git
-snapper-gui
 snap-pac-grub
 swhkd-git
 nwg-look
@@ -12,8 +11,7 @@ ripdrag-git
 rofi-lbonn-wayland-git
 rtl88x2bu-dkms-git
 tutanota-desktop-bin
-vscodium-bin
+vscodium
 waybar-hyprland-git
 wl-clip-persist-git
 wlogout
-
