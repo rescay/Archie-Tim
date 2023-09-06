@@ -1,31 +1,39 @@
 # Set keymap and font size for installation
 ```sh
-loadkeys de-latin1-nodeadkeys ; </br> 
-setfont ter-132n </br> 
+loadkeys de-latin1-nodeadkeys ; 
+setfont ter-132n  
 ```
+</br>
 # Establish a wifi connection and check connection
 ```sh
-ip a </br>
+ip a
 ```
+</br>
 ```sh
-iwctl station wlan device scan </br>
+iwctl station wlan device scan 
 ```
+</br>
 ```sh
-iwctl station wlan device get-networks </br>
+iwctl station wlan device get-networks 
 ```
+</br>
 ```sh
-iwctl --passphrase "" station wlan device connect SSID </br>
+iwctl --passphrase "" station wlan device connect SSID 
 ```
+</br>
 ```sh
-ping archlinux.org </br>
+ping archlinux.org 
 ```
+</br>
 # Create partitions
 ```sh
-fdisk -l </br>
+fdisk -l 
 ```
+</br>
 ```sh
-fdisk /dev/device </br>
+fdisk /dev/device 
 ```
+</br>
 g for new GPT partition table </br>
 n for new partition </br>
 t for partition type </br>
@@ -34,111 +42,229 @@ t for partition type </br>
 
 # Create filesystems
 ```sh
-mkfs.fat EFI -F32 /dev/nvme0n1p1 </br>
+mkfs.fat EFI -F32 /dev/nvme0n1p1
 ```
+</br>
 ```sh
-mkfs.btrfs --label Boot /dev/nvme0n1p2 </br> 
+mkfs.btrfs --label Boot /dev/nvme0n1p2  
 ```
+</br>
 # Encrypt drive and create filesystem and mount
 ```sh
-cryptsetup --type luks2 luksFormat /dev/nvme0n1p3 </br>
+cryptsetup --type luks2 luksFormat /dev/nvme0n1p3 
 ```
+</br>
 ```sh
-cryptsetup open --type luks2 /dev/nvme0n1p3 archie </br>
+cryptsetup open --type luks2 /dev/nvme0n1p3 archie 
 ```
+</br>
 ```sh
-mkfs.btrfs --label archie /dev/mapper/archie </br>
+mkfs.btrfs --label archie /dev/mapper/archie 
 ```
+</br>
 ```sh
-mount -o noatime,compress=lzo:3,ssd,space_cache=v2 /dev/mapper/archie /mnt </br>
-```sh
+mount -o noatime,compress=lzo:3,ssd,space_cache=v2 /dev/mapper/archie /mnt 
+
+```
+</br>
 
 # Setup with LVM (skip if want to use timeshift or snapper)
-
-pvcreate --dataalignment 1m /dev/mapper/archie </br>
-vgcreate volgroup0 /dev/mapper/archie </br>
-lvcreate -L 40GB volgroup0 archie_root </br>
-lvcreate -L 300GB volgroup0 archie_home </br>
-modprobe dm_mod </br>
-vgscan </br>
-vgchange -ay </br>
-mount /dev/volgroup/archie_root /mnt </br>
-mkdir -p /mnt/home </br>
-mkfs.btrfs /dev/volgroup0/archie_home </br>
-mount /dev/volgroup0/archie_home /mnt/home </br>
+```sh
+pvcreate --dataalignment 1m /dev/mapper/archie
+```
+</br>
+```sh
+vgcreate volgroup0 /dev/mapper/archie 
+```
+</br>
+```sh
+lvcreate -L 40GB volgroup0 archie_root 
+```
+</br>
+```sh
+lvcreate -L 300GB volgroup0 archie_home 
+</br>
+```
+```sh
+modprobe dm_mod 
+```
+</br>
+```sh
+vgscan 
+```
+</br>
+```sh
+vgchange -ay 
+```
+</br>
+```sh
+mount /dev/volgroup/archie_root /mnt
+```
+</br>
+```sh
+mkdir -p /mnt/home
+```
+</br>
+```sh
+mkfs.btrfs /dev/volgroup0/archie_home
+```
+</br>
+```sh
+mount /dev/volgroup0/archie_home /mnt/home
+```
+</br>
 
 # BTRFS: Create and mount subvolumes
-
-btrfs su cr /mnt/@ </br>
-btrfs su cr /mnt/@home </br>
-btrfs su cr /mnt/@home_snapshots </br>
-btrfs su cr /mnt/@snapshots </br>
-btrfs su cr /mnt/@var_log </br>
-btrfs su cr /mnt/@var_cache </br>
-btrfs su cr /mnt/@pkg </br>
-
-umount /mnt </br>
-
-mkdir -p /mnt/{boot/EFI,home/.snapshots,.snapshots,var/{log,cache/pacman/pkg}} </br>
-
-mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@ /dev/mapper/archie /mnt </br>
-mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@home /dev/mapper/archie /mnt/home </br>
-mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@home_snapshots /dev/mapper/archie /mnt/home/.snapshots </br>
-mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@snapshots /dev/mapper/archie /mnt/.snapshots </br>
-mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@var_log /dev/mapper/archie /mnt/var/log </br>
-mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@var_cache /dev/mapper/archie /mnt/var/cache </br>
-mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@pkg /dev/mapper/archie /mnt/var/cache/pacman/pkg </br>
-
-mount /dev/nvme0n1p2 /mnt/boot </br>
-mount /dev/nvme0n1p1 /mnt/boot/EFI </br>
+```sh
+btrfs su cr /mnt/@ 
+```
+</br>
+```sh
+btrfs su cr /mnt/@home 
+```
+</br>
+```sh
+btrfs su cr /mnt/@home_snapshots
+```
+</br>
+```sh
+btrfs su cr /mnt/@snapshots 
+```
+</br>
+```sh
+btrfs su cr /mnt/@var_log
+```
+</br>
+```sh
+btrfs su cr /mnt/@var_cache 
+```
+</br>
+```sh
+btrfs su cr /mnt/@pkg 
+```
+</br>
+```sh
+umount /mnt
+```
+</br>
+```sh
+mkdir -p /mnt/{boot/EFI,home/.snapshots,.snapshots,var/{log,cache/pacman/pkg}} 
+```
+</br>
+```sh
+mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@ /dev/mapper/archie /mnt
+```
+</br>
+```sh
+mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@home /dev/mapper/archie /mnt/home
+```
+</br>
+```sh
+mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@home_snapshots /dev/mapper/archie /mnt/home/.snapshots 
+```
+</br>
+```sh
+mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@snapshots /dev/mapper/archie /mnt/.snapshots 
+```
+</br>
+```sh
+mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@var_log /dev/mapper/archie /mnt/var/log 
+```
+</br>
+```sh
+mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@var_cache /dev/mapper/archie /mnt/var/cache
+```
+</br>
+```sh
+mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@pkg /dev/mapper/archie /mnt/var/cache/pacman/pkg
+```
+</br>
+```sh
+mount /dev/nvme0n1p2 /mnt/boot && 
+mount /dev/nvme0n1p1 /mnt/boot/EFI 
+```
+</br>
 
 # Install the base system
-
-pacstrap -K /mnt base base-devel reflector rsync git bash-completion linux linux-lts linux-headers linux-lts-headers linux-firmware neovim amd-ucode</br>
+```sh
+pacstrap -K /mnt base base-devel reflector rsync git bash-completion linux linux-lts linux-headers linux-lts-headers linux-firmware neovim amd-ucode
+```
+</br>
 
 # Generate filesystem table
-
-genfstab -U -p /mnt >> /mnt/etc/fstab </br>
-cat /mnt/etc/fstab </br>
-cp /mnt/etc/fstab /mnt/etc/fstab.bak </br>
-
+```sh
+genfstab -U -p /mnt >> /mnt/etc/fstab &&
+cat /mnt/etc/fstab &&
+cp /mnt/etc/fstab /mnt/etc/fstab.bak 
+```
+</br>
 # Entering installation directory
-
+```sh
 arch-chroot /mnt </br>
-
+```
+</br>
 # Setting timezone, clock and language
-
-timedatectl list-timezones | grep City </br> 
-ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime </br>
-hwclock --systohc </br>
-nvim /etc/locale.gen </br>
-locale-gen </br>
-echo LANG=en_US.UTF8 >> /etc/locale.conf </br>
-echo LANGUAGE=en_US >> /etc/locale.conf </br>
-echo KEYMAP=de-latin1 >> /etc/vconsole.conf </br>
-
+```sh
+timedatectl list-timezones | grep City 
+```
+</br> 
+```sh
+ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime 
+```
+</br>
+```sh
+hwclock --systohc
+```
+</br>
+```sh
+nvim /etc/locale.gen 
+```
+</br>
+```sh
+locale-gen &&
+echo LANG=en_US.UTF8 >> /etc/locale.conf &&
+echo LANGUAGE=en_US >> /etc/locale.conf &&
+echo KEYMAP=de-latin1 >> /etc/vconsole.conf 
+```
+</br>
 # Setting hostname and hosts
-
-echo tim-archie >> /etc/hostname </br>
-echo 127.0.0.1 localhost >> /etc/hosts </br>
-echo ::1 localhost >> /etc/hosts </br>vv
-echo 127.0.0.1 tim-archie.localdomain tim-archie >> /etc/hosts </br>
-
+```sh
+echo tim-archie >> /etc/hostname &&
+echo 127.0.0.1 localhost >> /etc/hosts &&
+echo ::1 localhost >> /etc/hosts &&
+echo 127.0.0.1 tim-archie.localdomain tim-archie >> /etc/hosts 
+```
+</br>
 # Setting root password
+```sh
+passwd
+```
+</br>
 
-passwd </br>
+# Create user and add sudo privileges                                                                    
+```sh                                                                                                    
+useradd -m -g users -G wheel tim &&                                                                   
+passwd tim &&                                                                                       
+EDITOR=nvim visudo # Add sudo privileges to wheel group 
+```
+</br>
 
 # Installing boot packages and setting up reflector
-
-reflector -c Germany --latest 5 --sort rate --save /etc/pacman.d/mirrorlist </br>
-git clone https://github.com/rescay/Archie-Tim </br>
-cd Archie-Tim/Paclists </br>
-pacman -Syu </br>
-pacman -S --needed - < pacman-boot </br>
-
+```sh
+reflector -c Germany --latest 5 --sort rate --save /etc/pacman.d/mirrorlist &&
+cd /home/tim/Downloads &&
+git clone https://github.com/rescay/Archie-Tim &&
+cd Archie-Tim/Paclists &&
+pacman -Syu &&
+pacman -S --needed - < pacman-boot 
+```
+</br>
 # Editing boot image file
 
-nvim /etc/mkinitcpio.conf </br>
+```sh
+nvim /etc/mkinitcpio.conf
+```
+</br>
 
 ## For AMD
 
@@ -151,14 +277,18 @@ MODULES=(btrfs nvidia nvidia_modeset nvidia_uvm nvidia_drm) </br>
 HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck" </br>
 
 ## Regenerating boot image file
-
-sudo mkinitcpio -p linux linux-lts </br>
+```sh
+sudo mkinitcpio -p linux linux-lts 
+```
+</br>
 
 # Install grub in MBR and configurate grub and generate grub configuration file
-
-grub-install --target=x86_64-efi --bootloader-id=grub_uefi --efi-directory=/boot/EFI --recheck </br>
-cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo </br>
-nvim /etc/default/grub uncomment GRUB_ENABLE_CRYPTODISK=y </br>
+```sh
+grub-install --target=x86_64-efi --bootloader-id=grub_uefi --efi-directory=/boot/EFI --recheck &&
+cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo &&
+nvim /etc/default/grub # uncomment GRUB_ENABLE_CRYPTODISK=y 
+```
+</br>
 
 ## For AMD
 
@@ -167,79 +297,100 @@ GRUB_CMDLINE_DEFAULT="cryptdevice=/dev/nvme0n1p3:archie:allow-discards root=/dev
 ## For NVIDIA
 GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=/dev/nvme01np3:archie:allow-discards root=/dev/mapper/archie rootflags=subvol=@ loglevel=3 quiet nvidia_drm.modeset=1" </br>
 
-grub-mkconfig -o /boot/grub/grub.cfg </br>
+```sh
+grub-mkconfig -o /boot/grub/grub.cfg 
+```
+</br>
 
 
 # Enable various services
-
-systemctl enable NetworkManager </br>
-sysemctl enable reflector.timer </br>
-systemctl enable sshd </br>
-
-# Create user and add sudo privileges
-
-useradd -m -g users -G wheel tim </br>
-passwd tim </br>
-EDITOR=nvim visudo   uncomment wheel group all </br>
-
-umount -a </br>
-Reboot </br>
-
+```sh
+systemctl enable NetworkManager &&
+sysemctl enable reflector.timer &&
+systemctl enable sshd 
+```
+</br>
+```sh
+umount -a &&
+reboot
+```
+</br>
 # Install packages
-
-sudo pacman -S --needed - < pacman-pkgs ; wayland </br>
-systemctl enable sddm </br>
-git clone https://aur.archlinux.org/yay.git </br>
-cd yay </br>
-makepkg -si </br>
-cd yay </br>
-yay -S --needed - < aur </br>
+```sh
+cd /home/tim/Downloads/Archie-Tim/Paclists
+sudo pacman -S --needed - < pacman-pkgs ; wayland &&
+cd ../.. &&
+git clone https://aur.archlinux.org/yay.git &&
+cd yay &&
+makepkg -si &&
+yay -S --needed - < aur
+```
+</br>
 
 # Configuring snapper snapshots
-
-sudo -s </br>
+```sh
+sudo -s 
+```
+</br>
 
 ## For root subvolume
-
-unmount /.snapshots </br>
-rm -r /.snapshots </br>
-snapper -c root create-config / </br>
-btrfs su del /.snapshots </br>
-mkdir /.snapshots </br>
-mount -a </br>
-btrfs su get-default / </br>
-btrfs subvol list / </br>
-btrfs subvol set-def number / </br>
-btrfs subvol get-default / </br>
+```sh
+unmount /.snapshots &&
+rm -r /.snapshots &&
+snapper -c root create-config / && 
+btrfs su del /.snapshots &&
+mkdir /.snapshots &&
+mount -a &&
+btrfs su get-default / &&
+btrfs subvol list / && 
+btrfs subvol set-def number / &&
+btrfs subvol get-default / 
+```
+</br>
 
 ### Setting privileges and create first snapshot
-
-nvim /etc/snapper/configs/root </br>
-chmod 750 /.snapshots </br>
-chown -r :wheel /.snapshots </br>
-snapper -c root create -d "***System Installed***" </br>
+```sh
+nvim /etc/snapper/configs/root # Editing config
+```
+</br>
+```sh
+chmod 750 /.snapshots &&
+chown -r :wheel /.snapshots &&
+snapper -c root create -d "***System Installed***" 
+```
+</br>
 
 ## For home subvolume
-
-unmount /home/.snapshots </br>
-rm -r /home/.snapshots </br>
-snapper -c home create-config /@home </br>
-btrfs su del /home/.snapshots </br>
-mkdir /home/.snapshots </br>
-mount -a </br>
-btrfs subvol list /@home </br>
+```sh
+unmount /home/.snapshots &&
+rm -r /home/.snapshots &&
+snapper -c home create-config /@home && 
+btrfs su del /home/.snapshots &&
+mkdir /home/.snapshots &&
+mount -a &&
+btrfs subvol list /@home 
+```
+</br>
 
 ### Setting privileges and create first snapshot
+```sh
+nvim /etc/snapper/configs/home # Editing config
+```
+</br>
+```sh
+chmod 750 /home/.snapshots &&
+chown -r :wheel /home/.snapshots &&
+snapper -c home create -d "***System Installed***" 
+```
+</br>
 
-nvim /etc/snapper/configs/home </br>
-chmod 750 /home/.snapshots </br>
-chown -r :wheel /home/.snapshots </br>
-snapper -c home create -d "***System Installed***" </br>
-
-
-
-### Disable updatedb to update from home snapshots and enable snap service
-
-nvim /etc/updatedb.conf PRUNENAMES = ".snapshots" </br>
-systemctl enable --now snapper-timeline.timer </br>
-systemctl enable --now snapper-cleanup.timer </br>
+### Disable updatedb to update from snapshots and enable snapper timers
+```sh
+nvim /etc/updatedb.conf  #PRUNENAMES = ".snapshots"  Editing plocates updatedb config
+```
+</br>
+```sh
+systemctl enable --now snapper-timeline.timer &&
+systemctl enable --now snapper-cleanup.timer
+```
+</br>
