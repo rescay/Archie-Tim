@@ -1,8 +1,8 @@
 # Set keymap and font size for installation
-<code>
-loadkeys de-latin1-nodeadkeys                                                                            
-setfont ter-132n 
-</code>
+<details>
+	loadkeys de-latin1-nodeadkeys                                                                            
+	setfont ter-132n
+</details>
 # Establish a wifi connection and check connection
 
 ip a
