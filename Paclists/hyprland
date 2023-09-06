@@ -1,10 +1,8 @@
-sddm
-pipewire
+hyprland
 polkit-kde-agent
-qt5-quickcontrols2
-qt5-svg
+qt5ct
 qt5-wayland
 qt6ct
 qt6-wayland
-wireplumber
+xdg-desktop-portal
 xdg-desktop-portal-hyprland

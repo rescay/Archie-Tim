@@ -1,0 +1,116 @@
+chromium
+cliphist
+curl
+## discord
+## dolphin
+dbus-python
+drminfo
+dunst
+element-desktop
+firefox
+fish
+gimp
+gparted
+htop
+hwinfo
+inxi
+jre-openjdk
+jdk-openjdk
+kitty
+lf
+libdisplay-info
+libdrm
+libvirt
+lutris
+make
+man
+ncdu
+neofetch
+nmap
+papirus-icon-theme
+plocate
+proton-ge-custom-bin
+protontricks
+ppp
+pptp-client
+python
+read-edid
+sway
+swaybg
+swayidle
+swayimg
+steam
+thunderbird
+tipp10
+traceroute
+unrar
+unzip
+veracrypt
+virtualbox
+virtualbox-ext-vnc
+virtualbox-host-dkms
+virtualbox-guest-iso
+waybar
+which
+wine
+winetricks
+wl-clipboard
+wget
+xournalpp
+yt-dlp
+zip
+zsh
+zsh-autocompletions
+zsh-autosuggestins
+zsh-history-substring-search
+zsh-syntax-highlighting
+zsh-theme-powerlevel10k
+#zoom
+
+
+# For AMD graphics                                                                                       
+                                                                                                         
+mesa                                                                                                     
+vulkan-radeon		# Vulkan support                                                                 
+libva-mesa-driver	# Accelerated video decoding                                                          
+                                                                                                         
+## For 32-bit support                                                                                    
+                                                                                                         
+#lib32-mesa                                                                                              
+#lib32-vulkan-radeon                                                                                     
+#lib32-libva-mesa-driver                                                                                 
+                                                                                                         
+                                                                                                         
+                                                                                                         
+# For NVIDIA graphics                                                                                    
+                                                                                                         
+#nvidia-open-dkms                                                                                        
+#nvidia-utils                                                                                            
+                                                                                                         
+## For 32-bit support                                                                                    
+                                                                                                         
+#lib32-nvidia-utils
+
+
+
+# Pipewire support
+
+pipewire
+pipewire-audio		# For bluetooth support
+wireplumber		# Session manager
+#pipewire-alsa		# For alsa clients
+#pipewire-pulse		# For pulse audio clients
+
+
+
+# Music player daemon
+
+mpd
+mpc 
+ncmpcpp
+
+
+# media player 
+
+vlc
+mpv

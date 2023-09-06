@@ -1,4 +1,8 @@
+acpi_call
+acpi_call-lts
 base-devel
+bluez
+bluez-utils
 btrfs-progs
 dialog
 dosfstools
@@ -11,9 +15,7 @@ mtools
 netctl
 net-tools
 networkmanager
-nvidia-open-dkms
 openssh
-os-prober
 reflector
 rsync
 snapper
@@ -21,3 +23,10 @@ wireless_tools
 wpa_supplicant
 xdg-utils
 xdg-user-dirs
+
+# windows dualboot support 
+# os-prober
+
+# laptop
+
+tlp

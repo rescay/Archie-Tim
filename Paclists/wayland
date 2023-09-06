@@ -1,5 +1,8 @@
-egl-wayland
+sddm
 glfw-wayland
 wayland
 xorg-xwayland
 xorg-xlsclients
+
+# For nvidia
+egl-wayland
