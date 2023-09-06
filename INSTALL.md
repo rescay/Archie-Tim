@@ -1,5 +1,5 @@
 # Set keymap and font size for installation
-
+:
 loadkeys de-latin1-nodeadkeys                                                                            
 setfont ter-132n 
 
