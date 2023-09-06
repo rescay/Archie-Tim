@@ -1,15 +1,14 @@
 # Set keymap and font size for installation
-Load:
+<code>
 loadkeys de-latin1-nodeadkeys                                                                            
 setfont ter-132n 
-
+</code>
 # Establish a wifi connection and check connection
 
 ip a
 iwctl station wlan device scan
 iwctl station wlan device get-networks
 iwctl --passphrase "" station wlan device connect SSID
-
 ping archlinux.org
 
 # Create partitions
