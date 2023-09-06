@@ -1,25 +1,25 @@
 # Set keymap and font size for installation
-<details>
-	loadkeys de-latin1-nodeadkeys                                                                            
-	setfont ter-132n
-</details>
+	
+ loadkeys de-latin1-nodeadkeys </br> 
+ setfont ter-132n </br> 
+
 # Establish a wifi connection and check connection
 
-ip a
-iwctl station wlan device scan
-iwctl station wlan device get-networks
-iwctl --passphrase "" station wlan device connect SSID
-ping archlinux.org
+ip a </br>
+iwctl station wlan device scan </br>
+iwctl station wlan device get-networks </br>
+iwctl --passphrase "" station wlan device connect SSID </br>
+ping archlinux.org </br>
 
 # Create partitions
 
-fdisk -l 
-fdisk /dev/device
-g for new GPT partition table
-n for new partition 
-t for partition type
-1 for EFI Partition 
-44 for LVM Partition
+fdisk -l </br>
+fdisk /dev/device </br>
+g for new GPT partition table </br>
+n for new partition </br>
+t for partition type </br>
+1 for EFI Partition </br>
+44 for LVM Partition </br>
 
 # Create filesystems
 
