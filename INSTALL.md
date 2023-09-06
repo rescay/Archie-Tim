@@ -9,6 +9,7 @@ ip a
 iwctl station wlan device scan
 iwctl station wlan device get-networks
 iwctl --passphrase "" station wlan device connect SSID
+
 ping archlinux.org
 
 # Create partitions
