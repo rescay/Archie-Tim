@@ -2,30 +2,30 @@
 ```sh
 loadkeys de-latin1-nodeadkeys ; </br> 
 setfont ter-132n </br> 
-```sh
+```
 # Establish a wifi connection and check connection
 ```sh
 ip a </br>
-```sh
+```
 ```sh
 iwctl station wlan device scan </br>
-```sh
+```
 ```sh
 iwctl station wlan device get-networks </br>
-```sh
+```
 ```sh
 iwctl --passphrase "" station wlan device connect SSID </br>
-```sh
+```
 ```sh
 ping archlinux.org </br>
-```sh
+```
 # Create partitions
 ```sh
 fdisk -l </br>
-```sh
+```
 ```sh
 fdisk /dev/device </br>
-```sh
+```
 g for new GPT partition table </br>
 n for new partition </br>
 t for partition type </br>
@@ -35,20 +35,20 @@ t for partition type </br>
 # Create filesystems
 ```sh
 mkfs.fat EFI -F32 /dev/nvme0n1p1 </br>
-```sh
+```
 ```sh
 mkfs.btrfs --label Boot /dev/nvme0n1p2 </br> 
-```sh
+```
 # Encrypt drive and create filesystem and mount
 ```sh
 cryptsetup --type luks2 luksFormat /dev/nvme0n1p3 </br>
-```sh
+```
 ```sh
 cryptsetup open --type luks2 /dev/nvme0n1p3 archie </br>
-```sh
+```
 ```sh
 mkfs.btrfs --label archie /dev/mapper/archie </br>
-```sh
+```
 ```sh
 mount -o noatime,compress=lzo:3,ssd,space_cache=v2 /dev/mapper/archie /mnt </br>
 ```sh
