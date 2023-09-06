@@ -1,4 +1,4 @@
-# Set keymap and font size for installation
+## Set keymap and font size for installation
 ```sh
 loadkeys de-latin1-nodeadkeys ; 
 setfont ter-132n  
@@ -282,7 +282,11 @@ sudo mkinitcpio -p linux linux-lts
 ```
 </br>
 
+<<<<<<< HEAD
 # Install grub in MBR and configurate grub and generate grub configuration file
+=======
+# Install grub in MBR and configurate grub 
+>>>>>>> 72c6135 (Put commands together)
 ```sh
 grub-install --target=x86_64-efi --bootloader-id=grub_uefi --efi-directory=/boot/EFI --recheck &&
 cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo &&
@@ -295,8 +299,13 @@ nvim /etc/default/grub # uncomment GRUB_ENABLE_CRYPTODISK=y
 GRUB_CMDLINE_DEFAULT="cryptdevice=/dev/nvme0n1p3:archie:allow-discards root=/dev/mapper/archie rootflags=subvol=@ loglevel= 3 quiet" </br>
 
 ## For NVIDIA
+
 GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=/dev/nvme01np3:archie:allow-discards root=/dev/mapper/archie rootflags=subvol=@ loglevel=3 quiet nvidia_drm.modeset=1" </br>
 
+<<<<<<< HEAD
+=======
+## Generate grub config file
+>>>>>>> 72c6135 (Put commands together)
 ```sh
 grub-mkconfig -o /boot/grub/grub.cfg 
 ```
@@ -310,6 +319,10 @@ sysemctl enable reflector.timer &&
 systemctl enable sshd 
 ```
 </br>
+<<<<<<< HEAD
+=======
+#### Unmount and reboot
+>>>>>>> 72c6135 (Put commands together)
 ```sh
 umount -a &&
 reboot
