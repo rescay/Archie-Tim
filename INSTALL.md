@@ -170,58 +170,57 @@ cat /mnt/etc/fstab &&
 cp /mnt/etc/fstab /mnt/etc/fstab.bak 
 ```
 </br>
-# Entering installation directory
+
+## Entering installation directory
+
 ```sh
 arch-chroot /mnt </br>
 ```
-</br>
-# Setting timezone, clock and language
+
+## Setting timezone, clock and language
+
 ```sh
 timedatectl list-timezones | grep City 
 ```
-</br> 
 ```sh
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime 
 ```
-</br>
 ```sh
 hwclock --systohc
 ```
-</br>
 ```sh
 nvim /etc/locale.gen 
 ```
-</br>
 ```sh
 locale-gen &&
 echo LANG=en_US.UTF8 >> /etc/locale.conf &&
 echo LANGUAGE=en_US >> /etc/locale.conf &&
 echo KEYMAP=de-latin1 >> /etc/vconsole.conf 
 ```
-</br>
-# Setting hostname and hosts
+## Setting hostname and hosts
+
 ```sh
 echo tim-archie >> /etc/hostname &&
 echo 127.0.0.1 localhost >> /etc/hosts &&
 echo ::1 localhost >> /etc/hosts &&
 echo 127.0.0.1 tim-archie.localdomain tim-archie >> /etc/hosts 
 ```
-</br>
-# Setting root password
+## Setting root password
+
 ```sh
 passwd
 ```
-</br>
 
-# Create user and add sudo privileges                                                                    
+## Create user and add sudo privileges
+
 ```sh                                                                                                    
 useradd -m -g users -G wheel tim &&                                                                   
 passwd tim &&                                                                                       
 EDITOR=nvim visudo # Add sudo privileges to wheel group 
 ```
-</br>
 
-# Installing boot packages and setting up reflector
+## Installing boot packages and setting up reflector
+
 ```sh
 reflector -c Germany --latest 5 --sort rate --save /etc/pacman.d/mirrorlist &&
 cd /home/tim/Downloads &&
@@ -230,13 +229,12 @@ cd Archie-Tim/Paclists &&
 pacman -Syu &&
 pacman -S --needed - < pacman-boot 
 ```
-</br>
-# Editing boot image file
+
+## Editing boot image file
 
 ```sh
 nvim /etc/mkinitcpio.conf
 ```
-</br>
 
 ## For AMD
 
@@ -249,22 +247,20 @@ MODULES=(btrfs nvidia nvidia_modeset nvidia_uvm nvidia_drm) </br>
 HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck" </br>
 
 ## Regenerating boot image file
+
 ```sh
 sudo mkinitcpio -p linux linux-lts 
 ```
-</br>
 
-<<<<<<< HEAD
-# Install grub in MBR and configurate grub and generate grub configuration file
-=======
-# Install grub in MBR and configurate grub 
->>>>>>> 72c6135 (Put commands together)
+
+## Install grub in MBR and configurate grub 
+
+
 ```sh
 grub-install --target=x86_64-efi --bootloader-id=grub_uefi --efi-directory=/boot/EFI --recheck &&
 cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo &&
 nvim /etc/default/grub # uncomment GRUB_ENABLE_CRYPTODISK=y 
 ```
-</br>
 
 ## For AMD
 
@@ -274,33 +270,30 @@ GRUB_CMDLINE_DEFAULT="cryptdevice=/dev/nvme0n1p3:archie:allow-discards root=/dev
 
 GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=/dev/nvme01np3:archie:allow-discards root=/dev/mapper/archie rootflags=subvol=@ loglevel=3 quiet nvidia_drm.modeset=1" </br>
 
-<<<<<<< HEAD
-=======
 ## Generate grub config file
->>>>>>> 72c6135 (Put commands together)
+
 ```sh
 grub-mkconfig -o /boot/grub/grub.cfg 
 ```
-</br>
 
 
-# Enable various services
+## Enable various services
+
 ```sh
 systemctl enable NetworkManager &&
 sysemctl enable reflector.timer &&
 systemctl enable sshd 
 ```
-</br>
-<<<<<<< HEAD
-=======
+
 #### Unmount and reboot
->>>>>>> 72c6135 (Put commands together)
+
 ```sh
 umount -a &&
 reboot
 ```
-</br>
-# Install packages
+
+## Install packages
+
 ```sh
 cd /home/tim/Downloads/Archie-Tim/Paclists
 sudo pacman -S --needed - < pacman-pkgs ; wayland &&
@@ -310,15 +303,15 @@ cd yay &&
 makepkg -si &&
 yay -S --needed - < aur
 ```
-</br>
 
-# Configuring snapper snapshots
+## Configuring snapper snapshots
+
 ```sh
 sudo -s 
 ```
-</br>
 
 ## For root subvolume
+
 ```sh
 unmount /.snapshots &&
 rm -r /.snapshots &&
@@ -331,21 +324,20 @@ btrfs subvol list / &&
 btrfs subvol set-def number / &&
 btrfs subvol get-default / 
 ```
-</br>
 
 ### Setting privileges and create first snapshot
 ```sh
 nvim /etc/snapper/configs/root # Editing config
 ```
-</br>
+
 ```sh
 chmod 750 /.snapshots &&
 chown -r :wheel /.snapshots &&
 snapper -c root create -d "***System Installed***" 
 ```
-</br>
 
 ## For home subvolume
+
 ```sh
 unmount /home/.snapshots &&
 rm -r /home/.snapshots &&
@@ -355,27 +347,26 @@ mkdir /home/.snapshots &&
 mount -a &&
 btrfs subvol list /@home 
 ```
-</br>
 
 ### Setting privileges and create first snapshot
+
 ```sh
 nvim /etc/snapper/configs/home # Editing config
 ```
-</br>
+
 ```sh
 chmod 750 /home/.snapshots &&
 chown -r :wheel /home/.snapshots &&
 snapper -c home create -d "***System Installed***" 
 ```
-</br>
 
 ### Disable updatedb to update from snapshots and enable snapper timers
+
 ```sh
 nvim /etc/updatedb.conf  #PRUNENAMES = ".snapshots"  Editing plocates updatedb config
 ```
-</br>
+
 ```sh
 systemctl enable --now snapper-timeline.timer &&
 systemctl enable --now snapper-cleanup.timer
 ```
-</br>
