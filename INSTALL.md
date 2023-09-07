@@ -4,36 +4,34 @@ loadkeys de-latin1-nodeadkeys ;
 setfont ter-132n  
 ```
 </br>
-# Establish a wifi connection and check connection
+
+## Establish a wifi connection and check connection
+
 ```sh
 ip a
 ```
-</br>
 ```sh
 iwctl station wlan device scan 
 ```
-</br>
 ```sh
 iwctl station wlan device get-networks 
 ```
-</br>
 ```sh
 iwctl --passphrase "" station wlan device connect SSID 
 ```
-</br>
 ```sh
 ping archlinux.org 
 ```
-</br>
-# Create partitions
+
+## Create partitions
+
+
 ```sh
 fdisk -l 
 ```
-</br>
 ```sh
 fdisk /dev/device 
 ```
-</br>
 g for new GPT partition table </br>
 n for new partition </br>
 t for partition type </br>
