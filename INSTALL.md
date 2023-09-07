@@ -242,7 +242,7 @@ HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck
 
 ## For NVIDIA
 
-MODULES=(btrfs nvidia nvidia_modeset nvidia_uvm nvidia_drm) </br>
+MODULES=(btrfs nouveau) </br>
 HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck" </br>
 
 ## Regenerating boot image file
