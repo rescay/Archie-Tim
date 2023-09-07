@@ -38,47 +38,41 @@ t for partition type </br>
 1 for EFI Partition </br>
 44 for LVM Partition </br>
 
-# Create filesystems
+## Create filesystems
+
 ```sh
 mkfs.fat EFI -F32 /dev/nvme0n1p1
 ```
-</br>
 ```sh
 mkfs.btrfs --label Boot /dev/nvme0n1p2  
 ```
-</br>
-# Encrypt drive and create filesystem and mount
+
+## Encrypt drive and create filesystem and mount
+
 ```sh
 cryptsetup --type luks2 luksFormat /dev/nvme0n1p3 
 ```
-</br>
 ```sh
 cryptsetup open --type luks2 /dev/nvme0n1p3 archie 
 ```
-</br>
 ```sh
 mkfs.btrfs --label archie /dev/mapper/archie 
 ```
-</br>
 ```sh
 mount -o noatime,compress=lzo:3,ssd,space_cache=v2 /dev/mapper/archie /mnt 
 
 ```
-</br>
 
-# Setup with LVM (skip if want to use timeshift or snapper)
+## Setup with LVM (skip if want to use timeshift or snapper)
 ```sh
 pvcreate --dataalignment 1m /dev/mapper/archie
 ```
-</br>
 ```sh
 vgcreate volgroup0 /dev/mapper/archie 
 ```
-</br>
 ```sh
 lvcreate -L 40GB volgroup0 archie_root 
 ```
-</br>
 ```sh
 lvcreate -L 300GB volgroup0 archie_home 
 </br>
@@ -86,110 +80,90 @@ lvcreate -L 300GB volgroup0 archie_home
 ```sh
 modprobe dm_mod 
 ```
-</br>
 ```sh
 vgscan 
 ```
-</br>
 ```sh
 vgchange -ay 
 ```
-</br>
 ```sh
 mount /dev/volgroup/archie_root /mnt
 ```
-</br>
 ```sh
 mkdir -p /mnt/home
 ```
-</br>
 ```sh
 mkfs.btrfs /dev/volgroup0/archie_home
 ```
-</br>
 ```sh
 mount /dev/volgroup0/archie_home /mnt/home
 ```
-</br>
 
-# BTRFS: Create and mount subvolumes
+
+## BTRFS: Create and mount subvolumes
+
 ```sh
 btrfs su cr /mnt/@ 
 ```
-</br>
 ```sh
 btrfs su cr /mnt/@home 
 ```
-</br>
 ```sh
 btrfs su cr /mnt/@home_snapshots
 ```
-</br>
 ```sh
 btrfs su cr /mnt/@snapshots 
 ```
-</br>
 ```sh
 btrfs su cr /mnt/@var_log
 ```
-</br>
 ```sh
 btrfs su cr /mnt/@var_cache 
 ```
-</br>
 ```sh
 btrfs su cr /mnt/@pkg 
 ```
-</br>
 ```sh
 umount /mnt
 ```
-</br>
 ```sh
 mkdir -p /mnt/{boot/EFI,home/.snapshots,.snapshots,var/{log,cache/pacman/pkg}} 
 ```
-</br>
 ```sh
 mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@ /dev/mapper/archie /mnt
 ```
-</br>
 ```sh
 mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@home /dev/mapper/archie /mnt/home
 ```
-</br>
 ```sh
 mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@home_snapshots /dev/mapper/archie /mnt/home/.snapshots 
 ```
-</br>
 ```sh
 mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@snapshots /dev/mapper/archie /mnt/.snapshots 
 ```
-</br>
 ```sh
 mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@var_log /dev/mapper/archie /mnt/var/log 
 ```
-</br>
 ```sh
 mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@var_cache /dev/mapper/archie /mnt/var/cache
 ```
-</br>
 ```sh
 mount -o noatime,compress=lzo:3,ssd,space_cache=v2,subvol=@pkg /dev/mapper/archie /mnt/var/cache/pacman/pkg
 ```
-</br>
 ```sh
 mount /dev/nvme0n1p2 /mnt/boot && 
 mount /dev/nvme0n1p1 /mnt/boot/EFI 
 ```
-</br>
 
-# Install the base system
+## Install the base system
+
 ```sh
 pacstrap -K /mnt base base-devel reflector rsync git bash-completion linux linux-lts linux-headers linux-lts-headers linux-firmware neovim amd-ucode
 ```
 </br>
 
-# Generate filesystem table
+## Generate filesystem table
+
 ```sh
 genfstab -U -p /mnt >> /mnt/etc/fstab &&
 cat /mnt/etc/fstab &&
