@@ -3,7 +3,6 @@
 loadkeys de-latin1-nodeadkeys ; 
 setfont ter-132n  
 ```
-</br>
 
 ## Establish a wifi connection and check connection
 
@@ -17,7 +16,7 @@ iwctl station wlan device scan
 iwctl station wlan device get-networks 
 ```
 ```sh
-iwctl --passphrase "" station wlan device connect SSID 
+iwctl station wlan device connect SSID --passphrase "" 
 ```
 ```sh
 ping archlinux.org 
