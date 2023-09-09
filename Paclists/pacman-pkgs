@@ -1,8 +1,6 @@
 chromium
 cliphist
 curl
-## discord
-## dolphin
 dbus-python
 drminfo
 dunst
@@ -62,57 +60,38 @@ zsh-autosuggestins
 zsh-history-substring-search
 zsh-syntax-highlighting
 zsh-theme-powerlevel10k
-#zoom
 
 
-# For AMD graphics                                                                                       
                                                                                                          
 mesa                                                                                                     
-vulkan-radeon		# Vulkan support                                                                 
-libva-mesa-driver	# Accelerated video decoding                                                          
+vulkan-radeon		                                                                
+libva-mesa-driver	                                                          
                                                                                                          
-## For 32-bit support                                                                                    
+                                                                                
                                                                                                          
-#lib32-mesa                                                                                              
-#lib32-vulkan-radeon                                                                                     
-#lib32-libva-mesa-driver                                                                                 
+lib32-mesa                                                                                              
+lib32-vulkan-radeon                                                                                     
+lib32-libva-mesa-driver                                                                                 
                                                                                                          
                                                                                                          
                                                                                                          
-# For NVIDIA graphics                                                                                    
-                                                                                                         
-#nvidia-open-dkms                                                                                        
-#nvidia-utils                                                                                            
-                                                                                                         
-## For 32-bit support                                                                                    
-                                                                                                         
-#lib32-nvidia-utils
-
-
-
-# Pipewire support
 
 pipewire
-pipewire-audio		# For bluetooth support
-wireplumber		# Session manager
-#pipewire-alsa		# For alsa clients
-#pipewire-pulse		# For pulse audio clients
+pipewire-audio		
+wireplumber		
 
 
 
-# Music player daemon
 
 mpd
 mpc 
 ncmpcpp
 
 
-# media player 
 
 vlc
 mpv
 
-# hyprland and dependencies
 
 hyprland
 polkit-kde-agent
@@ -123,13 +102,11 @@ qt6-wayland
 xdg-desktop-portal
 xdg-desktop-portal-hyprland
 
-# sway stuff 
 
 sway 
 swaybg
 swayidle
 swayimg
 
-# ide's
 pycharm-community-edition
 intellij-idea-community-edition

@@ -15,6 +15,4 @@ vscodium-bin
 wl-clip-persist-git
 wlogout
 wlr-randr
-
-# usb wlan driver
-#rtl88x2bu-dkms-git
+rtl88x2bu-dkms-git

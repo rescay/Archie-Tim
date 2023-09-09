@@ -15,15 +15,11 @@ netctl
 net-tools
 networkmanager
 openssh
+os-prober
 snapper
+tlp
 wireless_tools
 wpa_supplicant
 xdg-utils
 xdg-user-dirs
-
--- windows dualboot support 
- os-prober --
-
--- for laptop --
-
-tlp
+os-prober
