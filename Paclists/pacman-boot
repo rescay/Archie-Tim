@@ -21,9 +21,9 @@ wpa_supplicant
 xdg-utils
 xdg-user-dirs
 
-# windows dualboot support 
-# os-prober
+-- windows dualboot support 
+ os-prober --
 
-# laptop
+-- for laptop --
 
 tlp
