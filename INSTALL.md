@@ -188,13 +188,12 @@ ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 hwclock --systohc
 ```
 ```sh
-nvim /etc/locale.gen 
+sed -e '/#de_DE.UTF-8/c\de_DE.UTF-8 UTF-8' -e '/#en_US.UTF-8/c\en_US.UTF-8 UTF-8' -i /etc/locale.gen && locale-gen  
 ```
 ```sh
-locale-gen &&
 echo LANG=en_US.UTF8 >> /etc/locale.conf &&
 echo LANGUAGE=en_US >> /etc/locale.conf &&
-echo KEYMAP=de-latin1 >> /etc/vconsole.conf 
+echo KEYMAP=de-latin1-nodeadkeys >> /etc/vconsole.conf 
 ```
 ## Setting hostname and hosts
 
@@ -229,52 +228,25 @@ pacman -Syu &&
 pacman -S --needed - < pacman-boot 
 ```
 
-## Editing boot image file
+## Editing boot image file and regenerating boot image file
 
 ```sh
-nvim /etc/mkinitcpio.conf
+### For AMD
+sed -e '/MODULES=()/c\MODULES=(btrfs amdgpu)' -e '/HOOKS=(base udev/c\HOOKS=(base udev autodetect modconfblock encrypt lvm2 filesystems keyboard fsck)' -i /etc/mkinitcpio.conf &&
+mkinitcpio -P
+### For NVIDIA
+sed -e '/MODULES=()/c\MODULES=(btrfs nouveau)' -e '/HOOKS=(base udev/c\HOOKS=(base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck)' -i /etc/mkinitcpio.conf &&
+mkinitcpio -P 
 ```
 
-## For AMD
-
-MODULES=(btrfs amdgpu) </br>
-HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck" </br>
-
-## For NVIDIA
-
-MODULES=(btrfs nouveau) </br>
-HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck" </br>
-
-## Regenerating boot image file
-
-```sh
-sudo mkinitcpio -p linux linux-lts 
-```
-
-
-## Install grub in MBR and configurate grub 
-
+## Install grub in MBR and configurate and generate grub config file 
 
 ```sh
 grub-install --target=x86_64-efi --bootloader-id=grub_uefi --efi-directory=/boot/EFI --recheck &&
 cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo &&
-nvim /etc/default/grub # uncomment GRUB_ENABLE_CRYPTODISK=y 
+sed -e '/#GRUB_ENABLE_CRYPTODISK/c\GRUB_ENABLE_CRYPTODISK=y' -e '/GRUB_DEFAULT/c\GRUB_DEFAULT="Advanced options for Arch Linux>Arch Linux, with Linux linux"' -e '/GRUB_TIMEOUT/c\GRUB_TIMEOUT=1' -e '/GRUB_CMDLINE_DEFAULT/c\GRUB_CMDLINE_DEFAULT="cryptdevice=/dev/nvme0n1p3:archie:allow-discards root=/dev/mapper/archie rootflags=subvol=@ loglevel=3 quiet"' -i /etc/default/grub &&
+grub-mkconfig -o /boot/grub/grub.cfg
 ```
-
-## For AMD
-
-GRUB_CMDLINE_DEFAULT="cryptdevice=/dev/nvme0n1p3:archie:allow-discards root=/dev/mapper/archie rootflags=subvol=@ loglevel= 3 quiet" </br>
-
-## For NVIDIA
-
-GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=/dev/nvme01np3:archie:allow-discards root=/dev/mapper/archie rootflags=subvol=@ loglevel=3 quiet nvidia_drm.modeset=1" </br>
-
-## Generate grub config file
-
-```sh
-grub-mkconfig -o /boot/grub/grub.cfg 
-```
-
 
 ## Enable various services
 
@@ -359,11 +331,13 @@ chown -r :wheel /home/.snapshots &&
 snapper -c home create -d "***System Installed***" 
 ```
 
-### Disable updatedb to update from snapshots and enable snapper timers
+### Disable updatedb to update from snapshots 
 
 ```sh
-nvim /etc/updatedb.conf  #PRUNENAMES = ".snapshots"  Editing plocates updatedb config
+sudo sed '/PRUNENAMES=/c\PRUNENAMES = ".git .hg .svn .snapshots"' -i /etc/updatedb.conf
 ```
+
+### Enable snapper timers
 
 ```sh
 systemctl enable --now snapper-timeline.timer &&
