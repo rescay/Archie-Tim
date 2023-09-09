@@ -74,7 +74,6 @@ lvcreate -L 40GB volgroup0 archie_root
 ```
 ```sh
 lvcreate -L 300GB volgroup0 archie_home 
-</br>
 ```
 ```sh
 modprobe dm_mod 
@@ -89,7 +88,7 @@ vgchange -ay
 mount /dev/volgroup/archie_root /mnt
 ```
 ```sh
-mkdir -p /mnt/home
+mkdir /mnt/home
 ```
 ```sh
 mkfs.btrfs /dev/volgroup0/archie_home
@@ -102,27 +101,13 @@ mount /dev/volgroup0/archie_home /mnt/home
 ## BTRFS: Create and mount subvolumes
 
 ```sh
-btrfs su cr /mnt/@ 
-```
-```sh
-btrfs su cr /mnt/@home 
-```
-```sh
-btrfs su cr /mnt/@home_snapshots
-```
-```sh
-btrfs su cr /mnt/@snapshots 
-```
-```sh
-btrfs su cr /mnt/@var_log
-```
-```sh
-btrfs su cr /mnt/@var_cache 
-```
-```sh
-btrfs su cr /mnt/@pkg 
-```
-```sh
+btrfs su cr /mnt/@ &&
+btrfs su cr /mnt/@home &&
+btrfs su cr /mnt/@home_snapshots &&
+btrfs su cr /mnt/@snapshots &&
+btrfs su cr /mnt/@var_log &&
+btrfs su cr /mnt/@var_cache &&
+btrfs su cr /mnt/@pkg && 
 umount /mnt
 ```
 ```sh
@@ -277,14 +262,19 @@ rm -r /.snapshots &&
 snapper -c root create-config / && 
 btrfs su del /.snapshots &&
 mkdir /.snapshots &&
-mount -a &&
+mount -a 
+
+### Set root as default subvolume
+
 btrfs su get-default / &&
-btrfs subvol list / && 
+btrfs subvol list / 
+
 btrfs subvol set-def number / &&
 btrfs subvol get-default / 
 ```
 
 ### Setting privileges and create first snapshot
+
 ```sh
 nvim /etc/snapper/configs/root # Editing config
 ```
