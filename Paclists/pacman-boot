@@ -1,6 +1,5 @@
 acpi_call
 acpi_call-lts
-base-devel
 bluez
 bluez-utils
 btrfs-progs
@@ -16,8 +15,6 @@ netctl
 net-tools
 networkmanager
 openssh
-reflector
-rsync
 snapper
 wireless_tools
 wpa_supplicant
