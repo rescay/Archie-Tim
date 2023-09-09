@@ -217,7 +217,7 @@ mkinitcpio -P
 ```sh
 grub-install --target=x86_64-efi --bootloader-id=grub_uefi --efi-directory=/boot/EFI --recheck &&
 cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo &&
-sed -e '/#GRUB_ENABLE_CRYPTODISK/c\GRUB_ENABLE_CRYPTODISK=y' -e '/GRUB_DEFAULT/c\GRUB_DEFAULT="Advanced options for Arch Linux>Arch Linux, with Linux linux"' -e '/GRUB_TIMEOUT/c\GRUB_TIMEOUT=1' -e '/GRUB_CMDLINE_DEFAULT/c\GRUB_CMDLINE_DEFAULT="cryptdevice=/dev/nvme0n1p3:archie:allow-discards root=/dev/mapper/archie rootflags=subvol=@ loglevel=3 quiet"' -i /etc/default/grub &&
+sed -e '/#GRUB_ENABLE_CRYPTODISK/c\GRUB_ENABLE_CRYPTODISK=y' -e '/GRUB_DEFAULT/c\GRUB_DEFAULT="Advanced options for Arch Linux>Arch Linux, with Linux linux"' -e '/GRUB_TIMEOUT/c\GRUB_TIMEOUT=1' -e '/GRUB_CMDLINE_DEFAULT/c\GRUB_CMDLINE_DEFAULT="cryptdevice=/dev/nvme0n1p3:archie:allow-discards root=/dev/mapper/archie rootflags=subvol=@ loglevel=3 quiet"' -i /etc/default/grub && # For custom edid file add drm.edid_firmware=eDP-1:edid/edid.bin
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
@@ -276,7 +276,7 @@ btrfs subvol get-default /
 ### Setting privileges and create first snapshot
 
 ```sh
-nvim /etc/snapper/configs/root # Editing config
+nvim /etc/snapper/configs/root 
 ```
 
 ```sh
@@ -300,7 +300,7 @@ btrfs subvol list /@home
 ### Setting privileges and create first snapshot
 
 ```sh
-nvim /etc/snapper/configs/home # Editing config
+nvim /etc/snapper/configs/home 
 ```
 
 ```sh
