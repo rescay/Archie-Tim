@@ -32,14 +32,11 @@ plocate
 proton-ge-custom-bin
 protontricks
 ppp
-pptp-client
+ppptpclient
 python
 read-edid
-sway
-swaybg
-swayidle
-swayimg
 steam
+sddm
 thunderbird
 tipp10
 traceroute
@@ -114,3 +111,21 @@ ncmpcpp
 
 vlc
 mpv
+
+# hyprland and dependencies
+
+hyprland
+polkit-kde-agent
+qt5ct
+qt5-wayland
+qt6ct
+qt6-wayland
+xdg-desktop-portal
+xdg-desktop-portal-hyprland
+
+# sway stuff 
+
+sway 
+swaybg
+swayidle
+swayimg

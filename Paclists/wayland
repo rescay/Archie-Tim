@@ -5,4 +5,4 @@ xorg-xwayland
 xorg-xlsclients
 
 # For nvidia
-egl-wayland
+#egl-wayland

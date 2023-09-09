@@ -9,19 +9,12 @@ swaylock-effects
 realvnc-vnc-viewer
 ripdrag-git
 rofi-lbonn-wayland-git
-rustdesk-bin
 tutanota-desktop-bin
-vim-plug
 virtualbox-ext-oracle
 vscodium-bin
+wl-clip-persist-git
 wlogout
 wlr-randr
 
 # usb wlan driver
 #rtl88x2bu-dkms-git
-
-
-
-# optional
-# zsh-auto-notify
-# zsh-you-should-use	
