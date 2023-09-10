@@ -205,10 +205,10 @@ pacman -S --needed - < pacman-boot
 
 ```sh
 ### For AMD
-sed -e '/MODULES=()/c\MODULES=(btrfs amdgpu)' -e '/HOOKS=(base udev/c\HOOKS=(base udev autodetect modconfblock encrypt lvm2 filesystems keyboard fsck)' -i /etc/mkinitcpio.conf &&
+sed -e '/MODULES=()/c\MODULES=(btrfs amdgpu)' -e '/HOOKS=(base udev autodetect modconf/c\HOOKS=(base udev autodetect modconfblock encrypt lvm2 filesystems keyboard fsck)' -i /etc/mkinitcpio.conf &&
 mkinitcpio -P
 ### For NVIDIA
-sed -e '/MODULES=()/c\MODULES=(btrfs nouveau)' -e '/HOOKS=(base udev/c\HOOKS=(base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck)' -i /etc/mkinitcpio.conf &&
+sed -e '/MODULES=()/c\MODULES=(btrfs nouveau)' -e '/HOOKS=(base udev autodetect modconf/c\HOOKS=(base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck)' -i /etc/mkinitcpio.conf &&
 mkinitcpio -P 
 ```
 
