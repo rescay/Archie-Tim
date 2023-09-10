@@ -281,7 +281,7 @@ nvim /etc/snapper/configs/root
 
 ```sh
 chmod 750 /.snapshots &&
-chown -r :wheel /.snapshots &&
+chown -R :wheel /.snapshots &&
 snapper -c root create -d "***System Installed***" 
 ```
 
@@ -305,7 +305,7 @@ nvim /etc/snapper/configs/home
 
 ```sh
 chmod 750 /home/.snapshots &&
-chown -r :wheel /home/.snapshots &&
+chown -R :wheel /home/.snapshots &&
 snapper -c home create -d "***System Installed***" 
 ```
 

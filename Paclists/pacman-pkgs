@@ -1,3 +1,4 @@
+bemenu
 chromium
 cliphist
 curl
@@ -7,6 +8,7 @@ element-desktop
 firefox
 fish
 gimp
+gnome-keyring
 gparted
 htop
 hwinfo
