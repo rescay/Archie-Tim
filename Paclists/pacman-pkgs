@@ -27,10 +27,8 @@ neofetch
 nmap
 papirus-icon-theme
 plocate
-proton-ge-custom-bin
-protontricks
 ppp
-ppptpclient
+pptpclient
 python
 read-edid
 steam
@@ -55,7 +53,7 @@ xournalpp
 yt-dlp
 zip
 zsh
-zsh-autocompletions
+zsh-completions
 zsh-autosuggestins
 zsh-history-substring-search
 zsh-syntax-highlighting

@@ -6,8 +6,11 @@ edid-decode-git
 hyprpicker-git
 snap-pac-grub
 swaylock-effects
+proton-ge-custom-bin
+protontricks
 realvnc-vnc-viewer
 ripdrag-git
+rtl88x2bu-dkms-git
 rofi-lbonn-wayland-git
 tutanota-desktop-bin
 virtualbox-ext-oracle
@@ -15,4 +18,3 @@ vscodium-bin
 wl-clip-persist-git
 wlogout
 wlr-randr
-rtl88x2bu-dkms-git
