@@ -1,9 +1,9 @@
+
 dolphin
 dolphin-plugins
-sddm-kcm
 plasma-desktop 
-plasma-wayland-session
 plasma-nm
 plasma-pa
+plasma-wayland-session
 print-manager
-
+sddm-kcm

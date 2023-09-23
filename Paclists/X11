@@ -1,4 +1,4 @@
-xorg-server
 xorg-drivers
-xorg-xkill
+xorg-server
 xorg-xinit
+xorg-xkill

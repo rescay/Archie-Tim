@@ -16,10 +16,10 @@ net-tools
 networkmanager
 openssh
 os-prober
+os-prober
 snapper
 tlp
 wireless_tools
 wpa_supplicant
-xdg-utils
 xdg-user-dirs
-os-prober
+xdg-utils
