@@ -1,3 +1,5 @@
+adwaita-qt5-git
+adwaita-qt6-git
 android-studio
 anki-official-binary-bundle
 cava
@@ -7,9 +9,9 @@ snap-pac-grub
 swaylock-effects
 proton-ge-custom-bin
 protontricks
-realvnc-vnc-viewer
 ripdrag-git
 rtl88x2bu-dkms-git
+rustdesk-bin
 rofi-lbonn-wayland-git
 tutanota-desktop-bin
 virtualbox-ext-oracle
