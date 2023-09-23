@@ -5,10 +5,12 @@ curl
 dbus-python
 dunst
 element-desktop
+ethtools
 firefox
 fish
 gimp
 gnome-keyring
+gnome-themes-extra
 gparted
 htop
 hwinfo
@@ -23,6 +25,7 @@ libvirt
 lutris
 make
 man
+nautilus
 ncdu
 neofetch
 nmap
@@ -32,8 +35,10 @@ ppp
 pptpclient
 python
 read-edid
+rustdesk-bin
 steam
 sddm
+smartmontools
 thunderbird
 tipp10
 traceroute
@@ -50,6 +55,7 @@ wine
 winetricks
 wl-clipboard
 wget
+xorg-xev
 xournalpp
 yt-dlp
 zip
