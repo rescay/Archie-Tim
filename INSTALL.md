@@ -107,7 +107,8 @@ btrfs su cr /mnt/@home_snapshots &&
 btrfs su cr /mnt/@snapshots &&
 btrfs su cr /mnt/@var_log &&
 btrfs su cr /mnt/@var_cache &&
-btrfs su cr /mnt/@pkg 
+btrfs su cr /mnt/@pkg &&
+umount /mnt
 ```
 ```sh
 mkdir -p /mnt/{boot/EFI,home/.snapshots,.snapshots,var/{log,cache/pacman/pkg}} 
