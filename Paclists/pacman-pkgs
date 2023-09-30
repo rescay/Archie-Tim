@@ -30,7 +30,6 @@ intellij-idea-community-edition
 inxi
 iptables-nft
 jdk-openjdk
-jmtpfs
 jre-openjdk
 kitty
 lf
@@ -74,7 +73,6 @@ qt6ct
 qt6-virtualkeyboard
 qt6-wayland
 read-edid
-saber-appimage
 sddm
 smartmontools
 spdlog
