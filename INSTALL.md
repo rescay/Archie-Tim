@@ -146,8 +146,8 @@ cp /mnt/etc/fstab /mnt/etc/fstab.bak
 
 ```sh
 arch-chroot /mnt
-</br>
 ```
+</br>
 
 ## Setting timezone, clock and language
 
