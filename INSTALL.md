@@ -145,7 +145,8 @@ cp /mnt/etc/fstab /mnt/etc/fstab.bak
 ## Entering installation directory
 
 ```sh
-arch-chroot /mnt </br>
+arch-chroot /mnt
+</br>
 ```
 
 ## Setting timezone, clock and language
